@@ -3,147 +3,125 @@
         <div class="navbar navbar-light">
         <div class="container-xl">
             <ul class="navbar-nav">
-            <?php if($this->session->userdata("level") == "Super Admin") :?>
-                <li class="nav-item dropdown" id="Artikel">
-                    <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false" >
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                            <svg width="24" height="24" class="me-3">
-                                <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-shirt" />
-                            </svg> 
-                        </span>
-                        <span class="nav-link-title">
-                            Artikel
-                        </span>
+            <li class="nav-item dropdown" id="Produk">
+                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false" >
+                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                        <svg width="24" height="24" class="me-3">
+                            <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-building-store" />
+                        </svg> 
+                    </span>
+                    <span class="nav-link-title">
+                        Produk
+                    </span>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" id="produk" href="<?= base_url()?>produk" >
+                        List Produk
                     </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" id="listArtikel" href="<?= base_url()?>artikel" >
-                            List Artikel
-                        </a>
-                        <a class="dropdown-item" id="arsipArtikel" href="<?= base_url()?>artikel/arsip" >
-                            Arsip Artikel
-                        </a>
-                        <a class="dropdown-item" id="produkArtikel" href="<?= base_url()?>artikel/produk" >
-                            List Produk
-                        </a>
-                    </div>
-                </li>
+                    <a class="dropdown-item" id="listVarian" href="<?= base_url()?>produk/varian" >
+                        List Varian Produk
+                    </a>
+                    <a class="dropdown-item" id="arsipVarian" href="<?= base_url()?>produk/arsipvarian" >
+                        Arsip Varian Produk
+                    </a>
+                </div>
+            </li>
 
-                <li class="nav-item dropdown" id="Penyetokan">
-                    <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false" >
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                            <svg width="24" height="24" class="me-3">
-                                <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-building-warehouse" />
-                            </svg> 
-                        </span>
-                        <span class="nav-link-title">
-                            Penyetokan
-                        </span>
+            <li class="nav-item dropdown" id="Penyetokan">
+                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false" >
+                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                        <svg width="24" height="24" class="me-3">
+                            <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-building-warehouse" />
+                        </svg> 
+                    </span>
+                    <span class="nav-link-title">
+                        Penyetokan
+                    </span>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" id="tambahPenyetokan" href="<?= base_url()?>penyetokan" >
+                        Tambah Penyetokan
                     </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" id="tambahPenyetokan" href="<?= base_url()?>penyetokan" >
-                            Tambah Penyetokan
-                        </a>
-                        <a class="dropdown-item" id="listPenyetokan" href="<?= base_url()?>penyetokan/list" >
-                            List Penyetokan
-                        </a>
-                        <a class="dropdown-item" id="arsipPenyetokan" href="<?= base_url()?>penyetokan/arsip" >
-                            Arsip Penyetokan
-                        </a>
-                    </div>
-                </li>
+                    <a class="dropdown-item" id="listPenyetokan" href="<?= base_url()?>penyetokan/list" >
+                        List Penyetokan
+                    </a>
+                    <a class="dropdown-item" id="arsipPenyetokan" href="<?= base_url()?>penyetokan/arsip" >
+                        Arsip Penyetokan
+                    </a>
+                </div>
+            </li>
 
-                <li class="nav-item dropdown" id="Penjualan">
-                    <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false" >
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                            <svg width="24" height="24" class="me-3">
-                                <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-shopping-cart-plus" />
-                            </svg> 
-                        </span>
-                        <span class="nav-link-title">
-                            Penjualan
-                        </span>
+            <li class="nav-item dropdown" id="Closing">
+                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false" >
+                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                        <svg width="24" height="24" class="me-3">
+                            <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-shopping-cart-plus" />
+                        </svg> 
+                    </span>
+                    <span class="nav-link-title">
+                        Closing
+                    </span>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" id="tambahClosing" href="<?= base_url()?>closing/tambah" >
+                        Tambah Closing
                     </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" id="tambahPenjualan" href="<?= base_url()?>penjualan" >
-                            Tambah Penjualan
-                        </a>
-                        <a class="dropdown-item" id="listPenjualan" href="<?= base_url()?>penjualan/list" >
-                            List Penjualan
-                        </a>
-                        <a class="dropdown-item" id="arsipPenjualan" href="<?= base_url()?>penjualan/arsip" >
-                            Arsip Penjualan
-                        </a>
-                    </div>
-                </li>
+                    <a class="dropdown-item" id="listClosing" href="<?= base_url()?>closing/list" >
+                        List Closing
+                    </a>
+                    <a class="dropdown-item" id="arsipClosing" href="<?= base_url()?>closing/arsip" >
+                        Arsip Closing
+                    </a>
+                    <a class="dropdown-item" id="pendingPickup" href="<?= base_url()?>closing/pendingpickup" >
+                        Pending Pickup
+                    </a>
+                    <a class="dropdown-item" id="perluPerhatian" href="<?= base_url()?>closing/perluperhatian" >
+                        Perlu Perhatian
+                    </a>
+                </div>
+            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#downloadLaporan" data-bs-toggle="modal" role="button" aria-expanded="false" >
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                            <svg width="24" height="24" class="me-3">
-                                <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-report-analytics" />
-                            </svg> 
-                        </span>
-                        <span class="nav-link-title">
-                            Laporan
-                        </span>
+            <li class="nav-item dropdown" id="Closing">
+                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false" >
+                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                        <svg width="24" height="24" class="me-3">
+                            <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-report-analytics" />
+                        </svg> 
+                    </span>
+                    <span class="nav-link-title">
+                        Laporan
+                    </span>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#downloadLaporan" data-bs-toggle="modal" >
+                        Download Laporan
                     </a>
-                </li>
+                    <a class="dropdown-item" target="_blank" href="<?= base_url()?>closing/view" >
+                        View Laporan
+                    </a>
+                </div>
+            </li>
 
-                <li class="nav-item" id="User">
-                    <a class="nav-link" href="<?= base_url()?>user" role="button" aria-expanded="false" >
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                            <svg width="24" height="24" class="me-3">
-                                <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-users" />
-                            </svg> 
-                        </span>
-                        <span class="nav-link-title">
-                            User
-                        </span>
+            <li class="nav-item dropdown" id="Other">
+                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false" >
+                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                        <svg width="24" height="24" class="me-3">
+                            <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-dots" />
+                        </svg> 
+                    </span>
+                    <span class="nav-link-title">
+                        Lainnya
+                    </span>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" id="listCs" href="<?= base_url()?>other/cs" >
+                        List CS
                     </a>
-                </li>
-            <?php elseif($this->session->userdata("level") == "Kasir") :?>
-                <li class="nav-item dropdown" id="Penjualan">
-                    <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false" >
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                            <svg width="24" height="24" class="me-3">
-                                <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-shopping-cart-plus" />
-                            </svg> 
-                        </span>
-                        <span class="nav-link-title">
-                            Penjualan
-                        </span>
+                    <a class="dropdown-item" id="listGudang" href="<?= base_url()?>other/gudang" >
+                        List Gudang
                     </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" id="tambahPenjualan" href="<?= base_url()?>penjualan" >
-                            Tambah Penjualan
-                        </a>
-                        <a class="dropdown-item" id="listPenjualan" href="<?= base_url()?>penjualan/list" >
-                            List Penjualan
-                        </a>
-                    </div>
-                </li>
-            <?php elseif($this->session->userdata("level") == "Gudang") :?>
-                <li class="nav-item dropdown" id="Penyetokan">
-                    <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false" >
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                            <svg width="24" height="24" class="me-3">
-                                <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-building-warehouse" />
-                            </svg> 
-                        </span>
-                        <span class="nav-link-title">
-                            Penyetokan
-                        </span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" id="tambahPenyetokan" href="<?= base_url()?>penyetokan" >
-                            Tambah Penyetokan
-                        </a>
-                        <a class="dropdown-item" id="listPenyetokan" href="<?= base_url()?>penyetokan/list" >
-                            List Penyetokan
-                        </a>
-                    </div>
-                </li>
-            <?php endif;?>
+                </div>
+            </li>
             </ul>
         </div>
         </div>

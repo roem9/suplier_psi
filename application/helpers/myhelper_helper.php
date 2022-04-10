@@ -1,7 +1,7 @@
 <?php
     function tablerIcon($icon, $margin = ""){
         return '
-            <svg width="24" height="24" class="alert-icon '.$margin.'">
+            <svg width="24" height="24" class="'.$margin.'">
                 <use xlink:href="'.base_url().'assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-'.$icon.'" />
             </svg>';
     }
@@ -103,18 +103,18 @@
         }
     }
 
-    function stok_artikel($id_artikel){
+    function stok_varian($id_varian){
         $CI =& get_instance();
 
         $CI->db->select("SUM(qty) as stok");
         $CI->db->from("detail_penyetokan");
-        $CI->db->where(["id_artikel" => $id_artikel]);
+        $CI->db->where(["id_varian" => $id_varian]);
         $CI->db->where(["hapus" => 0]);
         $penyetokan = $CI->db->get()->row_array();
         
         $CI->db->select("SUM(qty) as stok");
-        $CI->db->from("detail_penjualan");
-        $CI->db->where(["id_artikel" => $id_artikel]);
+        $CI->db->from("detail_closing");
+        $CI->db->where(["id_varian" => $id_varian]);
         $CI->db->where(["hapus" => 0]);
         $penjualan = $CI->db->get()->row_array();
 
@@ -130,11 +130,25 @@
         return $CI->db->get()->result_array();
     }
 
-    function list_artikel(){
+    function list_varian(){
         $CI =& get_instance();
-        $CI->db->from("artikel");
+        $CI->db->from("varian_produk");
         $CI->db->where("hapus", "0");
-        $CI->db->order_by("nama_artikel");
+        $CI->db->order_by("nama_varian");
+        return $CI->db->get()->result_array();
+    }
+
+    function list_gudang(){
+        $CI =& get_instance();
+        $CI->db->from("gudang");
+        $CI->db->order_by("nama_gudang");
+        return $CI->db->get()->result_array();
+    }
+
+    function list_cs(){
+        $CI =& get_instance();
+        $CI->db->from("cs");
+        $CI->db->order_by("nama_cs");
         return $CI->db->get()->result_array();
     }
 
@@ -164,11 +178,84 @@
     function item_penjualan($id_penjualan){
         $CI =& get_instance();
         $CI->db->select("SUM(qty) as stok");
-        $CI->db->from("detail_penjualan");
+        $CI->db->from("detail_closing");
         $CI->db->where(["id_penjualan" => $id_penjualan]);
         
         $stok = $CI->db->get()->row_array();
 
         if($stok) return $stok['stok'];
         else return 0;
+    }
+
+    function produk_closing($id_closing){
+        $CI =& get_instance();
+        $CI->db->from("detail_closing");
+        $CI->db->where(["id_closing" => $id_closing]);
+        
+        $data = $CI->db->get()->result_array();
+        
+        // $produk = "<span>";
+        $produk = "";
+        foreach ($data as $data) {
+            $produk .= $data['kode_varian'] . " (" . $data['qty'] . "),";
+        }
+        $produk = substr($produk, 0, -1);
+        // $produk .= "</span>";
+
+        return $produk;
+    }
+
+    function durasi($tgl_input = "", $tgl_closing = "", $tgl_delivery = "", $tgl_ubah_status = "", $tgl_retur_cancel = ""){
+        if($tgl_delivery == NULL && $tgl_retur_cancel == NULL){
+            $tgl1 = new DateTime($tgl_closing);
+            $tgl2 = new DateTime('NOW');
+            $durasi = date_diff($tgl1, $tgl2);
+
+            return $durasi->d . " hari";
+        } else if($tgl_retur_cancel != NULL){
+            $tgl1 = new DateTime($tgl_closing);
+            $tgl2 = new DateTime($tgl_retur_cancel);
+            $durasi = date_diff($tgl1, $tgl2);
+
+            return $durasi->d . " hari";
+        } else {
+            $tgl1 = new DateTime($tgl_delivery);
+            $tgl2 = new DateTime($tgl_ubah_status);
+            $durasi = date_diff($tgl1, $tgl2);
+
+            return $durasi->d . " hari";
+        }
+    }
+
+    function status_input($tgl_input, $tgl_closing){
+        $tgl1 = new DateTime($tgl_input);
+        $tgl2 = new DateTime($tgl_closing);
+        $durasi = date_diff($tgl1, $tgl2);
+
+        if($durasi->d > 2){
+            return '<a data-bs-toggle="tooltip" data-bs-placement="top" title="telat menginput data closing">'.tablerIcon("alert-circle", "text-warning").'</a>';
+        } else {
+            return "";
+        }
+    }
+
+    function status_delivered($tgl_delivery, $tgl_ubah_status){
+        $tgl1 = new DateTime($tgl_delivery);
+        $tgl2 = new DateTime($tgl_ubah_status);
+        $durasi = date_diff($tgl1, $tgl2);
+
+        if($durasi->d > 3){
+            return '<a data-bs-toggle="tooltip" data-bs-placement="top" title="telat mengupdate status pengiriman">'.tablerIcon("alert-circle", "text-warning").'</a>';
+        } else {
+            return "";
+        }
+    }
+
+    function warna_status($status){
+        if($status == "Waiting") return "#620000";
+        elseif($status == "Shipping") return "#E4CD05";
+        elseif($status == "Delivered") return "skyblue";
+        elseif($status == "Returned") return "red";
+        elseif($status == "Canceled") return "grey";
+        elseif($status == "Produksi") return "green";
     }

@@ -20,7 +20,7 @@ class Auth extends CI_Controller {
             $cookie = get_cookie('delusi');
             // cek session
             if ($this->session->userdata('username')) {
-                redirect(base_url("artikel"));
+                redirect(base_url("produk/varian"));
             } else if($cookie <> '') {
                 
                 $row = $this->Main_model->get_one("admin", ["cookie" => $cookie]);
@@ -88,13 +88,7 @@ class Auth extends CI_Controller {
 
         $this->session->set_userdata($sess);
 
-        if($sess['level'] == "Super Admin") {
-            redirect(base_url("artikel"));
-        } else if($sess['level'] == "Kasir") {
-            redirect(base_url("penjualan"));
-        } else if($sess['level'] == "Gudang") {
-            redirect(base_url("penyetokan"));
-        }
+        redirect(base_url("produk/varian"));
     }
 
     public function logout(){

@@ -20,39 +20,31 @@
             <div class="page-body">
                 <div class="container-xl">
                     <form id="formPenyetokan">
-                        <!-- <h5>List Artikel</h5> -->
+                        <!-- <h5>List Varian</h5> -->
                         <div class="card mb-3">
                             <div class="card-body">
                                 <table class="table card-table table-vcenter text-dark">
                                     <thead>
                                         <tr>
                                             <th class="w-1">No</th>
-                                            <th>Artikel</th>
+                                            <th>Varian</th>
                                             <th style="width : 30%">QTY</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="listOfArtikel">
+                                    <tbody class="listOfVarian">
                                         <?php 
                                             $i = 1;
                                             foreach ($detail_penyetokan as $detail) :?>
                                             <tr id="<?= $i?>">
                                                 <td>
-                                                    <input type="hidden" name="id_artikel" value="<?= $detail['id_artikel']?>">
+                                                    <input type="hidden" name="id_varian" value="<?= $detail['id_varian']?>">
                                                     <span class="urut"><?= $i?></span>
                                                 </td>
                                                 <td>
-                                                    <?php if($this->session->userdata("level") == "Super Admin") :?>
-                                                        <a href="javascript:void(0)" class="hapusArtikel text-danger" data-id="<?= $i?>" data-nama="<?= $detail['nama_artikel'] . " " . $detail['ukuran']?>"><?= $detail['nama_artikel'] . " " . $detail['ukuran']?></a>
-                                                    <?php else :?>
-                                                        <?= $detail['nama_artikel'] . " " . $detail['ukuran']?>
-                                                    <?php endif;?>
+                                                    <a href="javascript:void(0)" class="hapusVarian text-danger" data-id="<?= $i?>" data-nama="<?= $detail['nama_varian']?>"><?= $detail['nama_varian']?></a>
                                                 </td>
                                                 <td class="text-right">
-                                                    <?php if($this->session->userdata("level") == "Super Admin") :?>
-                                                        <input type="number" name="qty" class="form form-control form-control-md required" value="<?= $detail['qty']?>">
-                                                    <?php else :?>
-                                                        <input type="number" name="qty" class="form form-control form-control-md required" disabled value="<?= $detail['qty']?>">
-                                                    <?php endif;?>
+                                                    <input type="number" name="qty" class="form form-control form-control-md required" value="<?= $detail['qty']?>">
                                                 </td>
                                             </tr>
                                         <?php 
@@ -61,25 +53,13 @@
                                     </tbody>
                                 </table>
                                 
-                                <?php if($this->session->userdata("level") == "Super Admin") :?>
-                                    <div class="form-floating mt-3">
-                                        <input type="text" name="cari_artikel" class="form-control form-control-sm">
-                                        <label class="col-form-label">Input Artikel</label>
-                                    </div>
-                                <?php endif;?>
+                                <div class="form-floating mt-3">
+                                    <input type="text" name="cari_varian" class="form-control form-control-sm">
+                                    <label class="col-form-label">Input Varian Produk</label>
+                                </div>
 
-                                <?php $artikel = list_artikel();?>
-                                <ul class="list-group" id="listOfArtikel" style="display:none">
-                                    <?php foreach ($artikel as $artikel) :?>
-                                        <!-- <li class="list-group-item list-group-item-light text-dark">
-                                            <div class="d-flex justify-content-between">
-                                                <?= $artikel['nama_artikel'] . " " . $artikel['ukuran'] . " (" . stok_artikel($artikel['id_artikel']) . ")"?>
-                                                <a href="javascript:void(0)" class="artikel text-success" data-id="<?= $artikel['id_artikel']?>">
-                                                    <?= tablerIcon("square-plus", "me-1")?>
-                                                </a>
-                                            </div>
-                                        </li> -->
-                                    <?php endforeach;?>
+                                <?php $varian = list_varian();?>
+                                <ul class="list-group" id="listOfVarian" style="display:none">
                                 </ul>
                             </div>
                         </div>
@@ -90,7 +70,7 @@
                             <label class="col-form-label">Tgl. Penyetokan</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <textarea name="keterangan" class="form form-control form-control-sm required" data-bs-toggle="autosize" style="background-color: white" <?= ($this->session->userdata("level") == "Super Admin") ? "" : "readonly"?>><?= $penyetokan['keterangan']?></textarea>
+                            <textarea name="keterangan" class="form form-control form-control-sm required" data-bs-toggle="autosize"><?= $penyetokan['keterangan']?></textarea>
                             <label class="col-form-label">Keterangan</label>
                         </div>
                         

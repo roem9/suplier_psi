@@ -20,37 +20,27 @@
             <div class="page-body">
                 <div class="container-xl">
                     <form id="formPenyetokan">
-                        <!-- <h5>List Artikel</h5> -->
+                        <!-- <h5>List Varian</h5> -->
                         <div class="card mb-3">
                             <div class="card-body">
                                 <table class="table card-table table-vcenter text-dark">
                                     <thead>
                                         <tr>
                                             <th class="w-1">No</th>
-                                            <th>Artikel</th>
+                                            <th>Varian</th>
                                             <th style="width : 30%">QTY</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="listOfArtikel">
+                                    <tbody class="listOfVarian">
                                     </tbody>
                                 </table>
                                 <div class="form-floating mt-3">
-                                    <input type="text" name="cari_artikel" class="form-control form-control-sm">
-                                    <label class="col-form-label">Input Artikel</label>
+                                    <input type="text" name="cari_varian" class="form-control form-control-sm">
+                                    <label class="col-form-label">Input Varian</label>
                                 </div>
 
-                                <?php $artikel = list_artikel();?>
-                                <ul class="list-group" id="listOfArtikel" style="display:none">
-                                    <?php foreach ($artikel as $artikel) :?>
-                                        <!-- <li class="list-group-item list-group-item-light text-dark">
-                                            <div class="d-flex justify-content-between">
-                                                <?= $artikel['nama_artikel'] . " " . $artikel['ukuran'] . " (" . stok_artikel($artikel['id_artikel']) . ")"?>
-                                                <a href="javascript:void(0)" class="artikel text-success" data-id="<?= $artikel['id_artikel']?>">
-                                                    <?= tablerIcon("square-plus", "me-1")?>
-                                                </a>
-                                            </div>
-                                        </li> -->
-                                    <?php endforeach;?>
+                                <?php $varian = list_varian();?>
+                                <ul class="list-group" id="listOfVarian" style="display:none">
                                 </ul>
                             </div>
                         </div>

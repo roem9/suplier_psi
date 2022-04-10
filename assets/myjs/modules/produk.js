@@ -1,197 +1,4 @@
-$("#addArtikel .btnTambah").click(function(){
-    Swal.fire({
-        icon: 'question',
-        text: 'Yakin akan menambahkan artikel baru?',
-        showCloseButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Ya',
-        cancelButtonText: 'Tidak'
-    }).then(function (result) {
-        if (result.value) {
-            let form = "#addArtikel";
-            let formData = {};
-            $(form+" .form").each(function(index){
-                formData = Object.assign(formData, {[$(this).attr("name")]: $(this).val()})
-            })
-
-            ukuran = new Array();
-            $.each($("input[name='ukuran']"), function(){
-                if($(this).prop('checked') == true){
-                    ukuran.push($(this).val());
-                }
-            });
-
-            formData = Object.assign(formData, {ukuran:ukuran});
-
-            let eror = required(form);
-            
-            if( eror == 1){
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'lengkapi isi form terlebih dahulu'
-                })
-            } else {
-                let result = ajax(url_base+"artikel/add_artikel", "POST", formData);
-
-                if(result == 1){
-                    loadData();
-                    $("#formAddArtikel").trigger("reset");
-
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        text: 'Berhasil menambahkan data artikel',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'terjadi kesalahan, silahkan mulai ulang halaman'
-                    })
-                }
-            }
-        }
-    })
-})
-
-$(document).on("click",".detailArtikel", function(){
-    let form = "#detailArtikel";
-    let id_artikel = $(this).data("id");
-
-    let data = {id_artikel: id_artikel};
-    let result = ajax(url_base+"artikel/get_artikel", "POST", data);
-    
-    $.each(result, function(key, value){
-        $(form+" [name='"+key+"']").val(value)
-    })
-})
-
-// menyimpan hasil edit data
-$("#detailArtikel .btnEdit").click(function(){
-    Swal.fire({
-        icon: 'question',
-        text: 'Yakin akan merubah data artikel?',
-        showCloseButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Ya',
-        cancelButtonText: 'Tidak'
-    }).then(function (result) {
-        if (result.value) {
-            let form = "#detailArtikel";
-            
-            let formData = {};
-            $(form+" .form").each(function(){
-                formData = Object.assign(formData, {[$(this).attr("name")]: $(this).val()})
-            })
-
-            let eror = required(form);
-            
-            if( eror == 1){
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'lengkapi isi form terlebih dahulu'
-                })
-            } else {
-                let result = ajax(url_base+"artikel/edit_artikel", "POST", formData);
-
-                if(result == 1){
-                    loadData();
-
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        text: 'Berhasil merubah data artikel',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'terjadi kesalahan, silahkan mulai ulang halaman'
-                    })
-                }
-            }
-        }
-    })
-})
-
-$(document).on("click", ".arsipArtikel", function(){
-    let id_artikel = $(this).data("id");
-
-    Swal.fire({
-        icon: 'question',
-        text: 'Yakin akan mengarsipkan data artikel ini?',
-        showCloseButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Ya',
-        cancelButtonText: 'Tidak'
-    }).then(function (result) {
-        if (result.value) {
-            data = {id_artikel: id_artikel}
-            let result = ajax(url_base+"artikel/arsip_artikel", "POST", data);
-
-            if(result == 1){
-                loadData();
-
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    text: 'Berhasil mengarsipkan data artikel',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'terjadi kesalahan, silahkan mulai ulang halaman'
-                })
-            }
-        }
-    })
-})
-
-$(document).on("click", ".bukaArsipArtikel", function(){
-    let id_artikel = $(this).data("id");
-
-    Swal.fire({
-        icon: 'question',
-        text: 'Yakin akan membuka arsip data artikel ini?',
-        showCloseButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Ya',
-        cancelButtonText: 'Tidak'
-    }).then(function (result) {
-        if (result.value) {
-            data = {id_artikel: id_artikel}
-            let result = ajax(url_base+"artikel/buka_arsip_artikel", "POST", data);
-
-            if(result == 1){
-                loadData();
-
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    text: 'Berhasil membuka arsip data artikel',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'terjadi kesalahan, silahkan mulai ulang halaman'
-                })
-            }
-        }
-    })
-})
-
+// tambah produk 
 $("#addProduk .btnTambah").click(function(){
     Swal.fire({
         icon: 'question',
@@ -217,7 +24,7 @@ $("#addProduk .btnTambah").click(function(){
                     text: 'lengkapi isi form terlebih dahulu'
                 })
             } else {
-                let result = ajax(url_base+"artikel/add_produk", "POST", formData);
+                let result = ajax(url_base+"produk/add_produk", "POST", formData);
 
                 if(result == 1){
                     loadData();
@@ -243,6 +50,7 @@ $("#addProduk .btnTambah").click(function(){
     })
 })
 
+// detail produk 
 $(document).on("click",".detailProduk", function(){
     let form = "#detailProduk";
     let id_produk = $(this).data("id");
@@ -255,7 +63,7 @@ $(document).on("click",".detailProduk", function(){
     })
 })
 
-// menyimpan hasil edit data
+// edit produk 
 $("#detailProduk .btnEdit").click(function(){
     Swal.fire({
         icon: 'question',
@@ -282,7 +90,7 @@ $("#detailProduk .btnEdit").click(function(){
                     text: 'lengkapi isi form terlebih dahulu'
                 })
             } else {
-                let result = ajax(url_base+"artikel/edit_produk", "POST", formData);
+                let result = ajax(url_base+"produk/edit_produk", "POST", formData);
 
                 if(result == 1){
                     loadData();
@@ -306,6 +114,7 @@ $("#detailProduk .btnEdit").click(function(){
     })
 })
 
+// arsip produk 
 $(document).on("click", ".arsipProduk", function(){
     let id_produk = $(this).data("id");
 
@@ -319,7 +128,7 @@ $(document).on("click", ".arsipProduk", function(){
     }).then(function (result) {
         if (result.value) {
             data = {id_produk: id_produk}
-            let result = ajax(url_base+"artikel/arsip_produk", "POST", data);
+            let result = ajax(url_base+"produk/arsip_produk", "POST", data);
 
             if(result == 1){
                 loadData();
@@ -328,6 +137,191 @@ $(document).on("click", ".arsipProduk", function(){
                     position: 'center',
                     icon: 'success',
                     text: 'Berhasil menghapus produk',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'terjadi kesalahan, silahkan mulai ulang halaman'
+                })
+            }
+        }
+    })
+})
+
+$("#addVarian .btnTambah").click(function(){
+    Swal.fire({
+        icon: 'question',
+        text: 'Yakin akan menambahkan varian produk baru?',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Ya',
+        cancelButtonText: 'Tidak'
+    }).then(function (result) {
+        if (result.value) {
+            let form = "#addVarian";
+            let formData = {};
+            $(form+" .form").each(function(index){
+                formData = Object.assign(formData, {[$(this).attr("name")]: $(this).val()})
+            })
+
+            let eror = required(form);
+            
+            if( eror == 1){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'lengkapi isi form terlebih dahulu'
+                })
+            } else {
+            let result = ajax(url_base+"produk/add_varian", "POST", formData);
+
+                if(result == 1){
+                    loadData();
+                    $("#formAddVarian").trigger("reset");
+
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        text: 'Berhasil menambahkan data varian baru',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'terjadi kesalahan, silahkan mulai ulang halaman'
+                    })
+                }
+            }
+        }
+    })
+})
+
+$(document).on("click",".detailVarian", function(){
+    let form = "#detailVarian";
+    let id_varian = $(this).data("id");
+
+    let data = {id_varian: id_varian};
+    let result = ajax(url_base+"produk/get_varian", "POST", data);
+    
+    $.each(result, function(key, value){
+        $(form+" [name='"+key+"']").val(value)
+    })
+})
+
+// menyimpan hasil edit data
+$("#detailVarian .btnEdit").click(function(){
+    Swal.fire({
+        icon: 'question',
+        text: 'Yakin akan merubah data varian produk?',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Ya',
+        cancelButtonText: 'Tidak'
+    }).then(function (result) {
+        if (result.value) {
+            let form = "#detailVarian";
+            
+            let formData = {};
+            $(form+" .form").each(function(){
+                formData = Object.assign(formData, {[$(this).attr("name")]: $(this).val()})
+            })
+
+            let eror = required(form);
+            
+            if( eror == 1){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'lengkapi isi form terlebih dahulu'
+                })
+            } else {
+                let result = ajax(url_base+"produk/edit_varian", "POST", formData);
+
+                if(result == 1){
+                    loadData();
+
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        text: 'Berhasil merubah data varian produk',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'terjadi kesalahan, silahkan mulai ulang halaman'
+                    })
+                }
+            }
+        }
+    })
+})
+
+$(document).on("click", ".arsipVarian", function(){
+    let id_varian = $(this).data("id");
+
+    Swal.fire({
+        icon: 'question',
+        text: 'Yakin akan mengarsipkan data varian produk ini?',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Ya',
+        cancelButtonText: 'Tidak'
+    }).then(function (result) {
+        if (result.value) {
+            data = {id_varian: id_varian}
+            let result = ajax(url_base+"produk/arsip_varian", "POST", data);
+
+            if(result == 1){
+                loadData();
+
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    text: 'Berhasil mengarsipkan data varian produk',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'terjadi kesalahan, silahkan mulai ulang halaman'
+                })
+            }
+        }
+    })
+})
+
+$(document).on("click", ".bukaArsipVarian", function(){
+    let id_varian = $(this).data("id");
+
+    Swal.fire({
+        icon: 'question',
+        text: 'Yakin akan membuka arsip data varian produk ini?',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Ya',
+        cancelButtonText: 'Tidak'
+    }).then(function (result) {
+        if (result.value) {
+            data = {id_varian: id_varian}
+            let result = ajax(url_base+"produk/buka_arsip_varian", "POST", data);
+
+            if(result == 1){
+                loadData();
+
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    text: 'Berhasil membuka arsip data varian produk',
                     showConfirmButton: false,
                     timer: 1500
                 })

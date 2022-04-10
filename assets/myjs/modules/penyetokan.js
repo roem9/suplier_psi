@@ -1,10 +1,10 @@
 // let urut = 0;
-$("[name='cari_artikel']").on('keyup', function(){
+$("[name='cari_varian']").on('keyup', function(){
     var value = $(this).val().toLowerCase();
-    if(value == "") $("#listOfArtikel").hide();
-    else $("#listOfArtikel").show();
+    if(value == "") $("#listOfVarian").hide();
+    else $("#listOfVarian").show();
 
-    $("#listOfArtikel li").each(function () {
+    $("#listOfVarian li").each(function () {
         if ($(this).text().toLowerCase().search(value) > -1) {
             $(this).show();
             $(this).prev('.subjectName').last().show();
@@ -14,29 +14,29 @@ $("[name='cari_artikel']").on('keyup', function(){
     });
 })
 
-$(document).on("click", ".artikel", function(){
+$(document).on("click", ".varian", function(){
     urut++;
-    let id_artikel = $(this).data("id");
-    let result = ajax(url_base+"artikel/get_artikel", "POST", {id_artikel : id_artikel});
+    let id_varian = $(this).data("id");
+    let result = ajax(url_base+"produk/get_varian", "POST", {id_varian : id_varian});
     // console.log(result)
-    $(".listOfArtikel").append(`
+    $(".listOfVarian").append(`
         <tr id="`+urut+`">
             <td>
-                <input type="hidden" name="id_artikel" value="`+result.id_artikel+`">
+                <input type="hidden" name="id_varian" value="`+result.id_varian+`">
                 <span class="urut">`+urut+`</span>
             </td>
-            <td><a href="javascript:void(0)" class="hapusArtikel text-danger" data-id="`+urut+`" data-nama="`+result.nama_artikel+` `+result.ukuran+`">`+result.nama_artikel+` `+result.ukuran+`</a></td>
+            <td><a href="javascript:void(0)" class="hapusVarian text-danger" data-id="`+urut+`" data-nama="`+result.nama_varian+`">`+result.nama_varian+`</a></td>
             <td class="text-right"><input type="number" name="qty" class="form form-control form-control-md required"></td>
         </tr>
     `)
 
     $("#btnSimpan").show();
 
-    // $("[name='cari_artikel']").val("");
-    // $("#listOfArtikel").hide();
+    // $("[name='cari_varian']").val("");
+    // $("#listOfVarian").hide();
 })
 
-$(document).on("click", ".hapusArtikel", function(){
+$(document).on("click", ".hapusVarian", function(){
     let id = $(this).data("id");
     let nama = $(this).data("nama");
 
@@ -80,9 +80,9 @@ $("#formPenyetokan #btnSimpan").click(function(){
                 formData = Object.assign(formData, {[$(this).attr("name")]: $(this).val()})
             })
 
-            id_artikel = new Array();
-            $.each($("input[name='id_artikel']"), function(){
-                id_artikel.push($(this).val());
+            id_varian = new Array();
+            $.each($("input[name='id_varian']"), function(){
+                id_varian.push($(this).val());
             });
 
             qty = new Array();
@@ -90,7 +90,7 @@ $("#formPenyetokan #btnSimpan").click(function(){
                 qty.push($(this).val());
             });
 
-            formData = Object.assign(formData, {id_artikel:id_artikel});
+            formData = Object.assign(formData, {id_varian:id_varian});
             formData = Object.assign(formData, {qty:qty});
 
             let eror = required(form);
@@ -109,8 +109,8 @@ $("#formPenyetokan #btnSimpan").click(function(){
                     $("#btnSimpan").hide();
                 
                     $(form).trigger('reset');
-                    $(".listOfArtikel").html("");
-                    listOfArtikel();
+                    $(".listOfVarian").html("");
+                    listOfVarian();
 
                     Swal.fire({
                         position: 'center',
@@ -131,16 +131,16 @@ $("#formPenyetokan #btnSimpan").click(function(){
     })
 })
 
-function listOfArtikel(){
-    let result = ajax(url_base+"artikel/get_all_artikel", "POST");
+function listOfVarian(){
+    let result = ajax(url_base+"produk/get_all_varian", "POST");
     let html = "";
 
-    result.forEach(artikel => {
+    result.forEach(varian => {
         html += `
         <li class="list-group-item list-group-item-light text-dark">
             <div class="d-flex justify-content-between">
-                `+ artikel.nama_artikel + ` ` + artikel.ukuran + ` (` + artikel.stok + `)
-                <a href="javascript:void(0)" class="artikel text-success" data-id="`+artikel.id_artikel+`">
+                `+ varian.kode_varian +` - `+ varian.nama_varian + ` (` + varian.stok + `)
+                <a href="javascript:void(0)" class="varian text-success" data-id="`+varian.id_varian+`">
                     `+tablerIcon("square-plus", "me-1")+`
                 </a>
             </div>
@@ -148,10 +148,10 @@ function listOfArtikel(){
         `
     })
 
-    $("#listOfArtikel").html(html);
+    $("#listOfVarian").html(html);
 }
 
-listOfArtikel();
+listOfVarian();
 
 $(document).on("click", ".arsipPenyetokan", function(){
     let id_penyetokan = $(this).data("id");
@@ -241,9 +241,9 @@ $("#formPenyetokan #btnEdit").click(function(){
                 formData = Object.assign(formData, {[$(this).attr("name")]: $(this).val()})
             })
 
-            id_artikel = new Array();
-            $.each($("input[name='id_artikel']"), function(){
-                id_artikel.push($(this).val());
+            id_varian = new Array();
+            $.each($("input[name='id_varian']"), function(){
+                id_varian.push($(this).val());
             });
 
             qty = new Array();
@@ -251,7 +251,7 @@ $("#formPenyetokan #btnEdit").click(function(){
                 qty.push($(this).val());
             });
 
-            formData = Object.assign(formData, {id_artikel:id_artikel});
+            formData = Object.assign(formData, {id_varian:id_varian});
             formData = Object.assign(formData, {qty:qty});
 
             let eror = required(form);
@@ -266,7 +266,7 @@ $("#formPenyetokan #btnEdit").click(function(){
                 let result = ajax(url_base+"penyetokan/edit_penyetokan", "POST", formData);
 
                 if(result == 1){
-                    listOfArtikel();
+                    listOfVarian();
 
                     Swal.fire({
                         position: 'center',

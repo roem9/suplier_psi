@@ -17,12 +17,12 @@
                     <!-- Page title actions -->
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
-                            <a href="<?= base_url()?>penyetokan" class="btn btn-primary d-none d-sm-inline-block">
+                            <a href="<?= base_url()?>closing/tambah" class="btn btn-primary d-none d-sm-inline-block">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
-                            Tambahkan Penyetokan
+                            Tambahkan Closing
                             </a>
-                            <a href="<?= base_url()?>penyetokan" class="btn btn-primary d-sm-none btn-icon" aria-label="Create new report">
+                            <a href="<?= base_url()?>closing/tambah" class="btn btn-primary d-sm-none btn-icon" aria-label="Create new report">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
                             </a>
@@ -39,10 +39,17 @@
                             <table id="dataTable" class="table card-table table-vcenter text-dark">
                                 <thead>
                                     <tr>
-                                        <th class="text-dark desktopmobile-l mobile-p tablet-l tablet-p" style="font-size: 11px">Tgl Penyetokan</th>
-                                        <th class="text-dark desktop" style="font-size: 11px">Keterangan</th>
-                                        <th class="text-dark desktop w-1" style="font-size: 11px">Item</th>
+                                        <th class="text-dark desktop w-1 text-nowrap" style="font-size: 11px">Tgl. Closing</th>
+                                        <th class="text-dark desktop mobile-l mobile-p tablet-l tablet-p text-nowrap" style="font-size: 11px">Nama Customer</th>
+                                        <th class="text-dark desktop" style="font-size: 11px">Pesanan Customer</th>
+                                        <!-- <th class="text-dark desktop w-1" style="font-size: 11px">Nominal</th> -->
+                                        <th class="text-dark desktop w-1" style="font-size: 11px">CS</th>
+                                        <th class="text-dark desktop w-1" style="font-size: 11px">Gudang</th>
+                                        <th class="text-dark desktop w-1 text-nowrap" style="font-size: 11px">Durasi</th>
+                                        <th class="text-dark desktop w-1" style="font-size: 11px">Status</th>
                                         <th class="text-dark desktop w-1" style="font-size: 11px">Tindakan</th>
+                                        <th class="text-dark none w-1" style="font-size: 11px">Jenis Customer</th>
+                                        <th class="text-dark none w-1" style="font-size: 11px">Catatan</th>
                                     </tr>
                                 </thead>
                             </table>

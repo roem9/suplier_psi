@@ -1,9 +1,9 @@
 var pathArray = window.location.pathname.split("/").pop()
 
-if(pathArray == "arsip"){
-    var url = url_base+"artikel/load_artikel/arsip";
+if(pathArray == "arsipvarian"){
+    var url = url_base+"produk/load_varian/arsip";
 } else {
-    var url = url_base+"artikel/load_artikel";
+    var url = url_base+"produk/load_varian";
 }
 
 var datatable = $('#dataTable').DataTable({ 
@@ -22,14 +22,8 @@ var datatable = $('#dataTable').DataTable({
     serverSide: true,
     ajax: {"url": url, "type": "POST"},
     columns: [
-        {"data": "nama_artikel"},
-        {"data": "ukuran", render : function(data, row, iDisplayIndex){
-            if(data == 0) data = "-"
-            else data += "";
-
-            if(jQuery.browser.mobile == true) return data
-            else return "<center>"+data+"</center>"
-        }},
+        {"data": "kode_varian"},
+        {"data": "nama_varian"},
         {"data": "produk"},
         {"data": "stok", render : function(data, row, iDisplayIndex){
             if(data == 0) data = "-"
@@ -39,16 +33,9 @@ var datatable = $('#dataTable').DataTable({
             else return "<center>"+data+"</center>"
         }},
         {"data": "harga", render: $.fn.dataTable.render.number( '.', '.', 0, 'Rp ' ) },
-        {"data": "diskon", render : function(data, row, iDisplayIndex){
-            if(data == 0) data = "-"
-            else data += "%";
-
-            if(jQuery.browser.mobile == true) return data
-            else return "<center>"+data+"</center>"
-        }},
         {"data": "menu"},
     ],
-    order: [[0, 'asc']],
+    order: [[1, 'asc']],
     rowCallback: function(row, data, iDisplayIndex) {
         var info = this.fnPagingInfo();
         var page = info.iPage;
@@ -57,7 +44,7 @@ var datatable = $('#dataTable').DataTable({
     },
     "columnDefs": [
     { "searchable": false, "targets": [""] },  // Disable search on first and last columns
-    { "targets": [3, 6], "orderable": false},
+    { "targets": [3, 5], "orderable": false},
     ],
     "rowReorder": {
         "selector": 'td:nth-child(0)'

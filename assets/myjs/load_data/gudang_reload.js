@@ -12,9 +12,9 @@ var datatable = $('#dataTable').DataTable({
     },
     processing: true,
     serverSide: true,
-    ajax: {"url": url_base+"produk/load_produk", "type": "POST"},
+    ajax: {"url": url_base+"other/load_gudang", "type": "POST"},
     columns: [
-        {"data": "produk"},
+        {"data": "nama_gudang"},
         {"data": "menu"},
     ],
     order: [[0, 'asc']],

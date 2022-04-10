@@ -6,27 +6,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Penyetokan extends MY_Controller {
 
     public function index(){
-        $level = $this->session->userdata("level");
+        $data['title'] = 'Tambah Penyetokan';
+        $data['menu'] = 'Penyetokan';
+        $data['dropdown'] = 'tambahPenyetokan';
 
-        if($level == "Super Admin" || $level == "Gudang") {
-            $data['title'] = 'Tambah Penyetokan';
-            $data['menu'] = 'Penyetokan';
-            $data['dropdown'] = 'tambahPenyetokan';
+        $data['modal'] = ["modal_laporan"];
 
-            $data['modal'] = ["modal_laporan"];
+        $data['js'] = [
+            "ajax.js",
+            "function.js",
+            "helper.js",
+            "modules/penyetokan.js",
+        ];
 
-            $data['js'] = [
-                "ajax.js",
-                "function.js",
-                "helper.js",
-                "modules/penyetokan.js",
-            ];
-
-            $this->load->view("pages/penyetokan/tambah", $data);
-        } else {
-            // jika level kasir arahkan ke penjualan
-            redirect(base_url("penjualan"));
-        }
+        $this->load->view("pages/penyetokan/tambah", $data);
     }
 
     public function list(){

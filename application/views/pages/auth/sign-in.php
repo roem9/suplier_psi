@@ -2,12 +2,12 @@
 
     <div class="page page-center">
         <div class="container-tight py-4">
-            <div class="text-center mb-4">
-                <a href="javascript:void(0)"><img src="<?= base_url()?>assets/img/logo.jpeg" height="90" alt=""></a>
-                <!-- <a href="javascript:void(0)"><img src="<?= base_url()?>assets/static/logo.png" height="90" alt=""></a> -->
-            </div>
             <form class="card card-md" action="<?= base_url()?>auth/login" method="post" autocomplete="off">
                 <div class="card-body">
+                    <div class="text-center">
+                        <!-- <a href="javascript:void(0)"><img src="<?= base_url()?>assets/static/logo.png" height="90" alt=""></a> -->
+                        <a href="javascript:void(0)"><img src="<?= base_url()?>assets/img/logo.png" height="100" alt=""></a>
+                    </div>
                 <h2 class="card-title text-center mb-4">Login to your account</h2>
                 <?php if( $this->session->flashdata('pesan') ) : ?>
                     <div class="col-12">
