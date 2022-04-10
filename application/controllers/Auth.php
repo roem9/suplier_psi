@@ -17,7 +17,7 @@ class Auth extends CI_Controller {
             $this->login();
         } else {
             // ambil cookie
-            $cookie = get_cookie('delusi');
+            $cookie = get_cookie('psi');
             // cek session
             if ($this->session->userdata('username')) {
                 redirect(base_url("produk/varian"));
@@ -49,7 +49,7 @@ class Auth extends CI_Controller {
             // 1. Buat Cookies jika remember di check
             if ($remember) {
                 $key = random_string('alnum', 64);
-                set_cookie('delusi', $key, 3600*24*365); // set expired 30 hari kedepan
+                set_cookie('psi', $key, 3600*24*365); // set expired 30 hari kedepan
                 // simpan key di database
                 
                 $this->Main_model->edit_data("admin", ["id_admin" => $row['id_admin']], ["cookie" => $key]);
@@ -81,7 +81,7 @@ class Auth extends CI_Controller {
     public function _daftarkan_session($row) {
         // 1. Daftarkan Session
         $sess = array(
-            'delusi' => $row['username'],
+            'psi' => $row['username'],
             'id_admin' => $row['id_admin'],
             'level' => $row['level']
         );
@@ -93,7 +93,7 @@ class Auth extends CI_Controller {
 
     public function logout(){
         // delete cookie dan session
-        delete_cookie('delusi');
+        delete_cookie('psi');
         $this->session->sess_destroy();
         redirect(base_url("auth"));
     }
