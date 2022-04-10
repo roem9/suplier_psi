@@ -23,80 +23,58 @@ class Penyetokan extends MY_Controller {
     }
 
     public function list(){
-        $level = $this->session->userdata("level");
+        $data['title'] = 'List Penyetokan';
+        $data['menu'] = 'Penyetokan';
+        $data['dropdown'] = 'listPenyetokan';
 
-        if($level == "Super Admin" || $level == "Gudang") {
-            $data['title'] = 'List Penyetokan';
-            $data['menu'] = 'Penyetokan';
-            $data['dropdown'] = 'listPenyetokan';
+        $data['modal'] = ["modal_laporan"];
 
-            $data['modal'] = ["modal_laporan"];
+        $data['js'] = [
+            "ajax.js",
+            "function.js",
+            "helper.js",
+            "load_data/penyetokan_reload.js",
+            "modules/penyetokan.js",
+        ];
 
-            $data['js'] = [
-                "ajax.js",
-                "function.js",
-                "helper.js",
-                "load_data/penyetokan_reload.js",
-                "modules/penyetokan.js",
-            ];
-
-            $this->load->view("pages/penyetokan/list", $data);
-        } else {
-            // jika level kasir arahkan ke penjualan
-            redirect(base_url("penjualan"));
-        }
+        $this->load->view("pages/penyetokan/list", $data);
     }
 
     public function arsip(){
-        $level = $this->session->userdata("level");
+        $data['title'] = 'List Arsip Penyetokan';
+        $data['menu'] = 'Penyetokan';
+        $data['dropdown'] = 'arsipPenyetokan';
 
-        if($level == "Super Admin") {
-            $data['title'] = 'List Arsip Penyetokan';
-            $data['menu'] = 'Penyetokan';
-            $data['dropdown'] = 'arsipPenyetokan';
+        $data['modal'] = ["modal_laporan"];
 
-            $data['modal'] = ["modal_laporan"];
+        $data['js'] = [
+            "ajax.js",
+            "function.js",
+            "helper.js",
+            "load_data/penyetokan_reload.js",
+            "modules/penyetokan.js",
+        ];
 
-            $data['js'] = [
-                "ajax.js",
-                "function.js",
-                "helper.js",
-                "load_data/penyetokan_reload.js",
-                "modules/penyetokan.js",
-            ];
-
-            $this->load->view("pages/penyetokan/list", $data);
-        } else if($level == "Kasir") {
-            redirect(base_url("penjualan"));
-        } else if($level == "Gudang") {
-            redirect(base_url("penyetokan"));
-        }
+        $this->load->view("pages/penyetokan/list", $data);
     }
 
     public function detail($id_penyetokan){
-        $level = $this->session->userdata("level");
+        $data['title'] = 'Detail Penyetokan';
+        $data['menu'] = 'Penyetokan';
 
-        if($level == "Super Admin" || $level == "Gudang") {
-            $data['title'] = 'Detail Penyetokan';
-            $data['menu'] = 'Penyetokan';
+        $data['modal'] = ["modal_laporan"];
 
-            $data['modal'] = ["modal_laporan"];
+        $data['js'] = [
+            "ajax.js",
+            "function.js",
+            "helper.js",
+            "modules/penyetokan.js",
+        ];
 
-            $data['js'] = [
-                "ajax.js",
-                "function.js",
-                "helper.js",
-                "modules/penyetokan.js",
-            ];
+        $data['penyetokan'] = $this->penyetokan->get_one("penyetokan", ["md5(id_penyetokan)" => $id_penyetokan]);
+        $data['detail_penyetokan'] = $this->penyetokan->get_all("detail_penyetokan", ["md5(id_penyetokan)" => $id_penyetokan]);
 
-            $data['penyetokan'] = $this->penyetokan->get_one("penyetokan", ["md5(id_penyetokan)" => $id_penyetokan]);
-            $data['detail_penyetokan'] = $this->penyetokan->get_all("detail_penyetokan", ["md5(id_penyetokan)" => $id_penyetokan]);
-
-            $this->load->view("pages/penyetokan/detail", $data);
-        } else {
-            // jika level kasir arahkan ke penjualan
-            redirect(base_url("penjualan"));
-        }
+        $this->load->view("pages/penyetokan/detail", $data);
 
     }
 
