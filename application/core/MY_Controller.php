@@ -13,7 +13,7 @@ class MY_Controller extends CI_Controller {
             $this->load->model($model . '_model', $model, true);
         // }
 
-        if(!$this->session->userdata('psi')){
+        if(!$this->session->userdata('cs_psi')){
             $this->session->set_flashdata('pesan', '
                 <div class="alert alert-important alert-danger alert-dismissible" role="alert">
                     <div class="d-flex">

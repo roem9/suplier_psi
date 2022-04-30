@@ -1,11 +1,3 @@
-var pathArray = window.location.pathname.split("/").pop()
-
-if(pathArray == "arsip"){
-    var url = url_base+"closing/load_closing/arsip";
-} else {
-    var url = url_base+"closing/load_closing";
-}
-
 var datatable = $('#dataTable').DataTable({ 
     initComplete: function() {
         var api = this.api();
@@ -20,13 +12,13 @@ var datatable = $('#dataTable').DataTable({
     },
     processing: true,
     serverSide: true,
-    ajax: {"url": url, "type": "POST"},
+    ajax: {"url": url_base+"app/load_closing", "type": "POST"},
     columns: [
         {"data": "tgl_closing", render : function(row, data, iDisplayIndex){
             return iDisplayIndex.tgl_closing
         }},
         {"data": "nama_closing", className : "text-wrap", render : function(row, data, iDisplayIndex){
-            return iDisplayIndex.nama_closing + iDisplayIndex.status_input;
+            return iDisplayIndex.nama_closing;
         }},
         {"data": "produk_closing", render : function(row, data, iDisplayIndex){
             return iDisplayIndex.produk_closing +`<br><span style="color: #118C4F"><b>`+ formatRupiah(iDisplayIndex.nominal_transaksi, "Rp.") +`</b></span>`
@@ -38,7 +30,7 @@ var datatable = $('#dataTable').DataTable({
         {"data": "nama_gudang", className:'text-nowrap'},
         {"data": "durasi", className:'text-nowrap'},
         {"data": "status", className:'text-nowrap', render : function(row, data, iDisplayIndex){
-            return iDisplayIndex.status + iDisplayIndex.status_delivered;
+            return iDisplayIndex.status;
         }},
         {"data": "menu"},
         {"data": "jenis_closing"},

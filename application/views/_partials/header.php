@@ -52,4 +52,3 @@
     <script> var level = "<?= $this->session->userdata('level')?>"; </script>
   </head>
   <body class="antialiased">
-    <?php $this->load->view("_partials/modal/modal_laporan")?>

@@ -22,7 +22,7 @@ function required(form){
     $.each($(form+" .required"), function(){
         if($(this).val() == "") {
             eror = 1
-            // console.log($(this).attr("name"))
+            console.log($(this).attr("name"))
             $(this).addClass("bg-red-lt")
         } else {
             $(this).removeClass("bg-red-lt")

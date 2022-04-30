@@ -12,16 +12,10 @@
     <div class="navbar-nav flex-row order-md-last">
         <div class="nav-item dropdown">
         <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-            <?php if($this->session->userdata("level") == "Super Admin") :?>
-                <img src="<?= base_url()?>assets/tabler-icons-1.39.1/icons/user.svg" class="rounded" alt="Górą ty" width="30" height="30">
-            <?php elseif($this->session->userdata("level") == "Kasir") :?>
-                <img src="<?= base_url()?>assets/tabler-icons-1.39.1/icons/shopping-cart-plus.svg" class="rounded" alt="Górą ty" width="30" height="30">
-            <?php elseif($this->session->userdata("level") == "Gudang") :?>
-                <img src="<?= base_url()?>assets/tabler-icons-1.39.1/icons/building-warehouse.svg" class="rounded" alt="Górą ty" width="30" height="30">
-            <?php endif;?>
+            <img src="<?= base_url()?>assets/tabler-icons-1.39.1/icons/user.svg" class="rounded" alt="Górą ty" width="30" height="30">
             <div class="d-none d-xl-block ps-2">
             <!-- <div>Paweł Kuna</div> -->
-            <div class="mt-1 small text-muted"><?= ucwords($this->session->userdata('level'))?></div>
+            <div class="mt-1 small text-muted"><?= ucwords($this->session->userdata('nama_cs'))?></div>
             </div>
         </a>
         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

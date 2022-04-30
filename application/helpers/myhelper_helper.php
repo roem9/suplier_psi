@@ -259,3 +259,147 @@
         elseif($status == "Canceled") return "grey";
         elseif($status == "Produksi") return "green";
     }
+
+    function periode($tgl){
+        $data = explode("-", $tgl);
+        $hari = $data[2];
+        $bulan = $data[1];
+        $tahun = $data[0];
+
+        if($bulan == "01") $bulan = "Januari";
+        if($bulan == "02") $bulan = "Februari";
+        if($bulan == "03") $bulan = "Maret";
+        if($bulan == "04") $bulan = "April";
+        if($bulan == "05") $bulan = "Mei";
+        if($bulan == "06") $bulan = "Juni";
+        if($bulan == "07") $bulan = "Juli";
+        if($bulan == "08") $bulan = "Agustus";
+        if($bulan == "09") $bulan = "September";
+        if($bulan == "10") $bulan = "Oktober";
+        if($bulan == "11") $bulan = "November";
+        if($bulan == "12") $bulan = "Desember";
+
+        return $bulan." ".$tahun;
+    }
+
+    function leads($data){
+        $CI =& get_instance();
+        $CI->db->select("SUM(leads_iklan) as leads_iklan, SUM(leads_inbox) as leads_inbox, SUM(leads_komen) as leads_komen");
+        $CI->db->from("laporan_harian");
+        $CI->db->where(["MONTH(tgl_laporan)" => date('m', strtotime($data['periode'])), "YEAR(tgl_laporan)" => date('Y', strtotime($data['periode']))]);
+        
+        $leads = $CI->db->get()->row_array();
+
+
+        if($leads) return $leads['leads_iklan'] + $leads['leads_inbox'] + $leads['leads_komen'];
+        else return 0;
+    }
+
+    function closing($data){
+        $CI =& get_instance();
+        $CI->db->select("id_closing");
+        $CI->db->from("closing");
+        $CI->db->where(["MONTH(tgl_closing)" => date('m', strtotime($data['periode'])), "YEAR(tgl_closing)" => date('Y', strtotime($data['periode'])), "id_cs" => $data['id_cs']]);
+        
+        $closing = $CI->db->get()->result_array();
+
+
+        if($closing) return COUNT($closing);
+        else return 0;
+    }
+
+    function delivered_closing($data){
+        $CI =& get_instance();
+        $CI->db->select("id_closing");
+        $CI->db->from("closing");
+        $CI->db->where(["MONTH(tgl_closing)" => date('m', strtotime($data['periode'])), "YEAR(tgl_closing)" => date('Y', strtotime($data['periode'])), "id_cs" => $data['id_cs'], "status" => "Delivered"]);
+        $delivered = $CI->db->get()->result_array();
+
+        
+        $CI->db->select("id_closing");
+        $CI->db->from("closing");
+        $CI->db->where(["MONTH(tgl_closing)" => date('m', strtotime($data['periode'])), "YEAR(tgl_closing)" => date('Y', strtotime($data['periode'])), "id_cs" => $data['id_cs']]);
+        $closing = $CI->db->get()->result_array();
+
+        $persentase = (count($delivered) / count($closing)) * 100;
+
+
+        if($delivered) return $persentase;
+        else return 0;
+    }
+
+    function customer_retensi($data){
+        $CI =& get_instance();
+        $CI->db->select("id_closing");
+        $CI->db->from("closing");
+        $CI->db->where(["MONTH(tgl_closing)" => date('m', strtotime($data['periode'])), "YEAR(tgl_closing)" => date('Y', strtotime($data['periode'])), "id_cs" => $data['id_cs'], "jenis_closing" => "RO"]);
+        $CI->db->or_where("jenis_closing", "Cross Selling");
+        
+        $closing = $CI->db->get()->result_array();
+
+
+        if($closing) return COUNT($closing);
+        else return 0;
+    }
+
+    function referal($data){
+        $CI =& get_instance();
+        $CI->db->select("id_closing");
+        $CI->db->from("closing");
+        $CI->db->where(["MONTH(tgl_closing)" => date('m', strtotime($data['periode'])), "YEAR(tgl_closing)" => date('Y', strtotime($data['periode'])), "id_cs" => $data['id_cs'], "jenis_closing" => "Referal"]);
+        
+        $closing = $CI->db->get()->result_array();
+
+
+        if($closing) return COUNT($closing);
+        else return 0;
+    }
+
+    function kesalahan_data($data){
+        $CI =& get_instance();
+        $CI->db->select("id_closing");
+        $CI->db->from("closing");
+        $CI->db->where(["MONTH(tgl_closing)" => date('m', strtotime($data['periode'])), "YEAR(tgl_closing)" => date('Y', strtotime($data['periode'])), "id_cs" => $data['id_cs'], "kesalahan_data" => "Ya"]);
+        
+        $closing = $CI->db->get()->result_array();
+
+
+        if($closing) return COUNT($closing);
+        else return 0;
+    }
+
+    function komplain($data){
+        $CI =& get_instance();
+        $CI->db->select("id_closing");
+        $CI->db->from("closing as closing");
+        $CI->db->where(["MONTH(tgl_closing)" => date('m', strtotime($data['periode'])), "YEAR(tgl_closing)" => date('Y', strtotime($data['periode'])), "id_cs" => $data['id_cs']])
+        ->where("closing.id_closing IN (select id_closing from komplain_closing)");
+        
+        $closing = $CI->db->get()->result_array();
+
+        if($closing) return COUNT($closing);
+        else return 0;
+    }
+
+    function rapel_laporan(){
+        $CI =& get_instance();
+        $CI->db->select("id_laporan, tgl_laporan, tgl_input, DATEDIFF(tgl_input, tgl_laporan) as rapel");
+        $CI->db->from("laporan_harian");
+        $CI->db->having("rapel <> 1");
+        
+        $laporan = $CI->db->get()->result_array();
+        // $laporan = $CI->db->get()->row_array();
+
+        if($laporan) return count($laporan);
+        else return 0;
+    }
+
+    function minimal_maksimal($data1, $data2, $operator){
+        if($operator == "Minimal"){
+            if($data1 >= $data2) return "<td class='bg-success'>Success";
+            else return "<td class='bg-danger'><center>Failed</center></td>";
+        } else {
+            if($data1 <= $data2) return "<td class='bg-success'>Success";
+            else return "<td class='bg-danger'><center>Failed</center></td>";
+        }
+    }

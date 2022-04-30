@@ -17,13 +17,13 @@ class Auth extends CI_Controller {
             $this->login();
         } else {
             // ambil cookie
-            $cookie = get_cookie('psi');
+            $cookie = get_cookie('cs_psi');
             // cek session
             if ($this->session->userdata('username')) {
-                redirect(base_url("produk/varian"));
+                redirect(base_url("closing"));
             } else if($cookie <> '') {
                 
-                $row = $this->Main_model->get_one("admin", ["cookie" => $cookie]);
+                $row = $this->Main_model->get_one("cs", ["cookie" => $cookie]);
     
                 if ($row) {
                     $this->_daftarkan_session($row);
@@ -42,17 +42,17 @@ class Auth extends CI_Controller {
         $username = $this->input->post('username');
         $password = $this->input->post("password", TRUE);
         $remember = $this->input->post('remember');
-        $row = $this->Main_model->get_one("admin", ["username" => $username, "password" => MD5($password), "hapus" => 0]);
+        $row = $this->Main_model->get_one("cs", ["username" => $username, "password" => MD5($password), "hapus" => 0]);
 
         if ($row) {
             // login berhasil
             // 1. Buat Cookies jika remember di check
             if ($remember) {
                 $key = random_string('alnum', 64);
-                set_cookie('psi', $key, 3600*24*365); // set expired 30 hari kedepan
+                set_cookie('cs_psi', $key, 3600*24*365); // set expired 30 hari kedepan
                 // simpan key di database
                 
-                $this->Main_model->edit_data("admin", ["id_admin" => $row['id_admin']], ["cookie" => $key]);
+                $this->Main_model->edit_data("cs", ["id_cs" => $row['id_cs']], ["cookie" => $key]);
             }
             $this->_daftarkan_session($row);
         } else {
@@ -81,19 +81,19 @@ class Auth extends CI_Controller {
     public function _daftarkan_session($row) {
         // 1. Daftarkan Session
         $sess = array(
-            'psi' => $row['username'],
-            'id_admin' => $row['id_admin'],
-            'level' => $row['level']
+            'cs_psi' => $row['username'],
+            'nama_cs' => $row['nama_cs'],
+            'id_cs' => $row['id_cs'],
         );
 
         $this->session->set_userdata($sess);
 
-        redirect(base_url("produk/varian"));
+        redirect(base_url("app/closing"));
     }
 
     public function logout(){
         // delete cookie dan session
-        delete_cookie('psi');
+        delete_cookie('cs_psi');
         $this->session->sess_destroy();
         redirect(base_url("auth"));
     }

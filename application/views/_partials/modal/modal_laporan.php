@@ -1,45 +1,72 @@
-<div class="modal modal-blur fade" id="downloadLaporan" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-blur fade" id="addLaporan" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Download Laporan</h5>
+                <h5 class="modal-title">Tambah Laporan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?= base_url()?>closing/downloadLaporan" method="post" target="_blank">
-                <div class="modal-body">
+            <div class="modal-body">
+                <form class="user" id="formAddLaporan">
                     <div class="form-floating mb-3">
-                        <input type="date" name="tgl_awal" class="form-control form-control-sm">
-                        <label class="col-form-label">Tgl Awal</label>
+                        <input type="date" name="tgl_laporan" class="form form-control form-control-sm required">
+                        <label class="col-form-label">Tgl Laporan</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="date" name="tgl_akhir" class="form-control form-control-sm">
-                        <label class="col-form-label">Tgl Akhir</label>
+                        <input type="text" name="leads_iklan" class="form form-control form-control-sm number required">
+                        <label class="col-form-label">Leads Iklan</label>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn me-3" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-success">Download</button>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="leads_inbox" class="form form-control form-control-sm number required">
+                        <label class="col-form-label">Leads Inbox</label>
                     </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="leads_komen" class="form form-control form-control-sm number required">
+                        <label class="col-form-label">Leads Komen</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn me-3" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary btnTambah">Tambah</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
-<script>
-    $("[name='laporan']").change(function(){
-        let laporan = $(this).val();
-        if(laporan == "Stok Artikel"){
-            $("[name='tgl_awal']").prop("disabled", true)
-            $("[name='tgl_akhir']").prop("disabled", true)
-            $("[name='tgl_awal']").prop("required", false)
-            $("[name='tgl_akhir']").prop("required", false)
-        } else {
-            $("[name='tgl_awal']").prop("disabled", false)
-            $("[name='tgl_akhir']").prop("disabled", false)
-            $("[name='tgl_awal']").prop("required", true)
-            $("[name='tgl_akhir']").prop("required", true)
-        }
-    })
-</script>
+<div class="modal modal-blur fade" id="detailLaporan" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail Laporan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="id_laporan" class="form required">
+                <div class="form-floating mb-3">
+                    <input type="date" name="tgl_laporan" class="form form-control form-control-sm required">
+                    <label class="col-form-label">Tgl Laporan</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" name="leads_iklan" class="form form-control form-control-sm number required">
+                    <label class="col-form-label">Leads Iklan</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" name="leads_inbox" class="form form-control form-control-sm number required">
+                    <label class="col-form-label">Leads Inbox</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" name="leads_komen" class="form form-control form-control-sm number required">
+                    <label class="col-form-label">Leads Komen</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn me-3" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary btnEdit">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
