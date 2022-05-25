@@ -15,7 +15,7 @@
             <img src="<?= base_url()?>assets/tabler-icons-1.39.1/icons/user.svg" class="rounded" alt="Górą ty" width="30" height="30">
             <div class="d-none d-xl-block ps-2">
             <!-- <div>Paweł Kuna</div> -->
-            <div class="mt-1 small text-muted"><?= ucwords($this->session->userdata('nama_cs'))?></div>
+            <div class="mt-1 small text-muted"><?= ucwords($this->session->userdata('nama_gudang'))?></div>
             </div>
         </a>
         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

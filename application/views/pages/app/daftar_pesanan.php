@@ -30,12 +30,8 @@
                                         <th class="text-dark desktop" style="font-size: 11px">Pesanan Customer</th>
                                         <!-- <th class="text-dark desktop w-1" style="font-size: 11px">Nominal</th> -->
                                         <th class="text-dark desktop w-1" style="font-size: 11px">CS</th>
-                                        <th class="text-dark desktop w-1" style="font-size: 11px">Gudang</th>
                                         <th class="text-dark desktop w-1 text-nowrap" style="font-size: 11px">Durasi</th>
                                         <th class="text-dark desktop w-1" style="font-size: 11px">Status</th>
-                                        <th class="text-dark desktop w-1" style="font-size: 11px">Tindakan</th>
-                                        <th class="text-dark none w-1" style="font-size: 11px">Jenis Customer</th>
-                                        <th class="text-dark none w-1" style="font-size: 11px">Catatan</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -59,6 +55,7 @@
 
     <script>
         $("#<?= $menu?>").addClass("active")
+        $("#<?= $dropdown?>").addClass("active")
     </script>
 
     <!-- load javascript -->

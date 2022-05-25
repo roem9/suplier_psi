@@ -4,39 +4,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class App extends MY_Controller {
 
-    public function closing(){
-        $data['title'] = 'List Closing';
-        $data['menu'] = "closing";
-        $data['modal'] = ["modal_closing"];
+    public function daftar_pesanan(){
+        $data['title'] = 'Daftar Pesanan';
+        $data['menu'] = "pesanan";
+        $data['dropdown'] = "daftarPesanan";
+        // $data['modal'] = ["modal_closing"];
         $data['js'] = [
             "ajax.js",
             "function.js",
             "helper.js",
-            "load_data/closing_reload.js",
-            "modules/closing.js",
+            "load_data/daftar_pesanan_reload.js",
+            // "modules/closing.js",
         ];
 
-        $this->load->view("pages/app/list_closing", $data);
+        $this->load->view("pages/app/daftar_pesanan", $data);
     }
 
-    public function load_closing(){
+    public function load_daftar_pesanan(){
         header('Content-Type: application/json');
-        $output = $this->app->load_closing();
+        $output = $this->app->load_daftar_pesanan();
         echo $output;
     }
 
-    public function detail_closing(){
-        $data = $this->app->detail_closing();
-        echo json_encode($data);
+    public function pesanan_terbaru(){
+        $data['title'] = 'Pesanan Terbaru';
+        $data['menu'] = "pesanan";
+        $data['dropdown'] = "pesananTerbaru";
+        $data['modal'] = ["modal_pesanan"];
+        $data['js'] = [
+            "ajax.js",
+            "function.js",
+            "helper.js",
+            "load_data/pesanan_terbaru_reload.js",
+            "modules/pesanan.js",
+        ];
+
+        $this->load->view("pages/app/pesanan_terbaru", $data);
     }
 
-    public function get_closing(){
-        $data = $this->app->get_closing();
-        echo json_encode($data);
+    public function load_pesanan_terbaru(){
+        header('Content-Type: application/json');
+        $output = $this->app->load_pesanan_terbaru();
+        echo $output;
     }
 
-    public function add_komen(){
-        $data = $this->app->add_komen();
+    public function pesanan_terkirim(){
+        $data = $this->app->pesanan_terkirim();
         echo json_encode($data);
     }
 
@@ -45,142 +58,80 @@ class App extends MY_Controller {
         echo json_encode($data);
     }
 
-    public function add_komplain(){
-        $data = $this->app->add_komplain();
+    public function add_komen($status_stok = ""){
+        $data = $this->app->add_komen($status_stok);
         echo json_encode($data);
     }
 
-    public function list_komplain(){
-        $data = $this->app->list_komplain();
-        echo json_encode($data);
-    }
-
-    public function change_status_komplain(){
-        $data = $this->app->change_status_komplain();
-        echo json_encode($data);
-    }
-
-    public function laporan(){
-        $data['title'] = 'List Laporan';
-        $data['menu'] = "laporan";
-        $data['modal'] = ["modal_laporan"];
+    public function stok_kosong(){
+        $data['title'] = 'Stok Kosong';
+        $data['menu'] = "pesanan";
+        $data['dropdown'] = "stokKosong";
+        $data['modal'] = ["modal_pesanan"];
         $data['js'] = [
             "ajax.js",
             "function.js",
             "helper.js",
-            "load_data/laporan_reload.js",
-            "modules/laporan.js",
+            "load_data/stok_kosong_reload.js",
+            "modules/pesanan.js",
         ];
 
-        $this->load->view("pages/app/list_laporan", $data);
+        $this->load->view("pages/app/stok_kosong", $data);
     }
 
-    public function load_laporan(){
+    public function load_stok_kosong(){
         header('Content-Type: application/json');
-        $output = $this->app->load_laporan();
+        $output = $this->app->load_stok_kosong();
         echo $output;
     }
 
-    public function add_laporan(){
-        $data = $this->app->add_laporan();
-        echo json_encode($data);
-    }
-
-    public function edit_laporan(){
-        $data = $this->app->edit_laporan();
-        echo json_encode($data);
-    }
-
-    public function get_laporan(){
-        $data = $this->app->get_laporan();
-        echo json_encode($data);
-    }
-
-    public function kpi(){
-        $data['id_cs'] = $this->session->userdata("id_cs");
-
-        $data['menu'] = "kpi";
+    public function pesanan_belum_lunas(){
+        $data['title'] = 'Pesanan Belum Lunas';
+        $data['menu'] = "pesanan";
+        $data['dropdown'] = "pesananBelumLunas";
+        // $data['modal'] = ["modal_closing"];
         $data['js'] = [
             "ajax.js",
             "function.js",
             "helper.js",
+            "load_data/pesanan_belum_lunas_reload.js",
+            // "modules/closing.js",
         ];
 
-        $data['setting_cs'] = $this->app->get_one("setting_cs", ["id_cs" => $data['id_cs']]);
-        $data['kpi'] = $this->app->get_one("kpi_cs", ["MONTH(tgl_kpi)" => date("m", strtotime($data['setting_cs']['periode'])), "YEAR(tgl_kpi)" => date("Y", strtotime($data['setting_cs']['periode']))]);
-
-        $data['title'] = 'List Key Performance Indicator (KPI) ' . periode($data['setting_cs']['periode']);
-
-        $this->load->view("pages/app/kpi", $data);
+        $this->load->view("pages/app/pesanan_belum_lunas", $data);
     }
 
-    public function komisi(){
-        $data['id_cs'] = $this->session->userdata("id_cs");
-        $data['title'] = 'List Komisi';
-        $data['menu'] = "komisi";
+    public function load_pesanan_belum_lunas(){
+        header('Content-Type: application/json');
+        $output = $this->app->load_pesanan_belum_lunas();
+        echo $output;
+    }
+
+    public function pesanan_retur_cancel(){
+        $data['title'] = 'Pesanan Retur Cancel';
+        $data['menu'] = "pesanan";
+        $data['dropdown'] = "pesananReturCancel";
+        // $data['modal'] = ["modal_closing"];
         $data['js'] = [
             "ajax.js",
             "function.js",
             "helper.js",
+            "load_data/pesanan_retur_cancel_reload.js",
+            "modules/pesanan.js",
         ];
 
-        $data['komisi'] = $this->app->komisi();
-        $data['pencairan'] = $this->app->get_all("pencairan_cs", ["id_cs" => $data['id_cs']]);
-
-        // var_dump($data['komisi']['periode']);
-
-        $this->load->view("pages/app/komisi", $data);
+        $this->load->view("pages/app/pesanan_retur_cancel", $data);
     }
 
-    public function conversion_rate(){
-        $data['id_cs'] = $this->session->userdata("id_cs");
-        $data['title'] = 'Conversion Rate';
-        $data['menu'] = "conversion_rate";
-        $data['js'] = [
-            "ajax.js",
-            "function.js",
-            "helper.js",
-        ];
-
-        $closing = $this->app->conversion_rate();
-
-        $data['labels'] = [];
-        $data['data'] = [];
-
-        foreach ($closing as $i => $data_closing) {
-            $data['labels'][$i] = date("d-m-y", strtotime($data_closing['tgl_closing']));
-            $data['data'][$i] = $data_closing['jumlah'];
-            
-            if($i == 0){
-                $data['warna'][$i] = "green";
-            } else {
-                if($data['data'][$i] >= $data['data'][$i-1]){
-                    $data['warna'][$i] = "green";
-                } else {
-                    $data['warna'][$i] = "red";
-                }
-            }
-        }
-
-        $data['labels'] = json_encode($data['labels']);
-        $data['data'] = json_encode($data['data']);
-        $data['warna'] = json_encode($data['warna']);
-
-        $data['setting_cs'] = $this->app->get_one("setting_cs", ["id_cs" => $data['id_cs']]);
-
-        $this->load->view("pages/app/conversion_rate", $data);
+    public function load_pesanan_retur_cancel(){
+        header('Content-Type: application/json');
+        $output = $this->app->load_pesanan_retur_cancel();
+        echo $output;
     }
 
-    public function change_periode(){
-        $this->app->change_periode();
-        
-        redirect(base_url("app/kpi"));
-    }
-
-    public function change_tgl(){
-        $this->app->change_tgl();
-        
-        redirect(base_url("app/conversion_rate"));
+    public function pesanan_retur_diterima(){
+        $data = $this->app->pesanan_retur_diterima();
+        echo json_encode($data);
     }
 }
 
