@@ -14,8 +14,8 @@ var datatable = $('#dataTable').DataTable({
     serverSide: true,
     ajax: {"url": url_base+"app/load_daftar_pesanan", "type": "POST"},
     columns: [
-        {"data": "tgl_closing", render : function(row, data, iDisplayIndex){
-            return iDisplayIndex.tgl_closing
+        {"data": "tgl_input", render : function(row, data, iDisplayIndex){
+            return iDisplayIndex.tgl_input
         }},
         {"data": "nama_closing", className : "text-wrap", render : function(row, data, iDisplayIndex){
             return iDisplayIndex.nama_closing;

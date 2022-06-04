@@ -205,6 +205,22 @@
         return $produk;
     }
 
+    function nominal_produk($id_closing){
+        $CI =& get_instance();
+        $CI->db->from("detail_closing");
+        $CI->db->where(["id_closing" => $id_closing]);
+        
+        $data = $CI->db->get()->result_array();
+        
+        // $produk = "<span>";
+        $nominal = 0;
+        foreach ($data as $data) {
+            $nominal += $data['harga'];
+        }
+
+        return $nominal;
+    }
+
     function durasi($tgl_input = "", $tgl_closing = "", $tgl_delivery = "", $tgl_ubah_status = "", $tgl_retur_cancel = ""){
         if($tgl_delivery == NULL && $tgl_retur_cancel == NULL){
             $tgl1 = new DateTime($tgl_closing);

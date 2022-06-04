@@ -6,7 +6,7 @@ class App_model extends MY_Model {
 
     public function load_daftar_pesanan(){
         $id_gudang = $this->session->userdata('id_gudang');
-        $this->datatables->select('id_closing, tgl_closing, catatan, jenis_closing, nama_closing, nominal_transaksi, nama_cs, nama_gudang, status, tgl_input, tgl_delivery, tgl_ubah_status, tgl_retur_cancel');
+        $this->datatables->select('id_closing, FORMAT(tgl_input, "dd-MM-yy"), tgl_closing, catatan, jenis_closing, nama_closing, nominal_transaksi, nama_cs, nama_gudang, status, tgl_input, tgl_delivery, tgl_ubah_status, tgl_retur_cancel');
         $this->datatables->from('closing');
         $this->datatables->where('id_gudang', $id_gudang);
         $this->db->order_by("tgl_closing", "desc");
@@ -44,7 +44,7 @@ class App_model extends MY_Model {
 
     public function load_pesanan_terbaru(){
         $id_gudang = $this->session->userdata('id_gudang');
-        $this->datatables->select('id_closing, tgl_closing, catatan, jenis_closing, nama_closing, nominal_transaksi, nama_cs, nama_gudang, status, tgl_input, tgl_delivery, tgl_ubah_status, tgl_retur_cancel');
+        $this->datatables->select('id_closing, FORMAT(tgl_input, "dd-MM-yy"), tgl_closing, catatan, jenis_closing, nama_closing, nominal_transaksi, nama_cs, nama_gudang, status, tgl_input, tgl_delivery, tgl_ubah_status, tgl_retur_cancel');
         $this->datatables->from('closing');
         $this->datatables->where(['id_gudang' => $id_gudang, "status_stok" => "Belum Dikirim"]);
         $this->db->order_by("tgl_closing", "desc");
@@ -150,7 +150,7 @@ class App_model extends MY_Model {
 
     public function load_stok_kosong(){
         $id_gudang = $this->session->userdata('id_gudang');
-        $this->datatables->select('id_closing, tgl_closing, catatan, jenis_closing, nama_closing, nominal_transaksi, nama_cs, nama_gudang, status, tgl_input, tgl_delivery, tgl_ubah_status, tgl_retur_cancel');
+        $this->datatables->select('id_closing, FORMAT(tgl_input, "dd-MM-yy"), tgl_closing, catatan, jenis_closing, nama_closing, nominal_transaksi, nama_cs, nama_gudang, status, tgl_input, tgl_delivery, tgl_ubah_status, tgl_retur_cancel');
         $this->datatables->from('closing');
         $this->datatables->where(['id_gudang' => $id_gudang, "status_stok" => "Stok Kosong"]);
         $this->db->order_by("tgl_closing", "desc");
@@ -184,7 +184,7 @@ class App_model extends MY_Model {
 
     public function load_pesanan_belum_lunas(){
         $id_gudang = $this->session->userdata('id_gudang');
-        $this->datatables->select('id_closing, tgl_closing, catatan, jenis_closing, nama_closing, nominal_transaksi, nama_cs, nama_gudang, status, tgl_input, tgl_delivery, tgl_ubah_status, tgl_retur_cancel');
+        $this->datatables->select('id_closing, FORMAT(tgl_input, "dd-MM-yy"), tgl_closing, catatan, jenis_closing, nama_closing, nominal_transaksi, nama_cs, nama_gudang, status, tgl_input, tgl_delivery, tgl_ubah_status, tgl_retur_cancel');
         $this->datatables->from('closing');
         $this->datatables->where(['id_gudang' => $id_gudang, "status_lunas" => "", "status" => "Delivered"]);
         $this->db->order_by("tgl_closing", "desc");
@@ -195,13 +195,14 @@ class App_model extends MY_Model {
         $this->datatables->add_column("durasi", "$1", "durasi(tgl_input, tgl_closing, tgl_delivery, tgl_ubah_status, tgl_retur_cancel)");
         $this->datatables->add_column("status_input", "$1", "status_input(tgl_input, tgl_closing)");
         $this->datatables->add_column("status_delivered", "$1", "status_delivered(tgl_delivery, tgl_ubah_status)");
+        $this->datatables->add_column("nominal_produk", "$1", "nominal_produk(id_closing)");
 
         return $this->datatables->generate();
     }
 
     public function load_pesanan_retur_cancel(){
         $id_gudang = $this->session->userdata('id_gudang');
-        $this->datatables->select('id_closing, tgl_closing, catatan, jenis_closing, nama_closing, nominal_transaksi, nama_cs, nama_gudang, status, tgl_input, tgl_delivery, tgl_ubah_status, tgl_retur_cancel, status_retur');
+        $this->datatables->select('id_closing, FORMAT(tgl_input, "dd-MM-yy"), tgl_closing, catatan, jenis_closing, nama_closing, nominal_transaksi, nama_cs, nama_gudang, status, tgl_input, tgl_delivery, tgl_ubah_status, tgl_retur_cancel, status_retur');
         $this->datatables->from('closing');
         $this->datatables->where(['id_gudang' => $id_gudang]);
         $this->datatables->where("status = 'Canceled' OR status = 'Returned'");

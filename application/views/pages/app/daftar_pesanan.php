@@ -25,7 +25,7 @@
                             <table id="dataTable" class="table card-table table-vcenter text-dark">
                                 <thead>
                                     <tr>
-                                        <th class="text-dark desktop w-1 text-nowrap" style="font-size: 11px">Tgl. Closing</th>
+                                        <th class="text-dark desktop w-1 text-nowrap" style="font-size: 11px">Tgl. Order</th>
                                         <th class="text-dark desktop mobile-l mobile-p tablet-l tablet-p text-nowrap" style="font-size: 11px">Nama Customer</th>
                                         <th class="text-dark desktop" style="font-size: 11px">Pesanan Customer</th>
                                         <!-- <th class="text-dark desktop w-1" style="font-size: 11px">Nominal</th> -->

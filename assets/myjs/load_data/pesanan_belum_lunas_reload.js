@@ -23,6 +23,9 @@ var datatable = $('#dataTable').DataTable({
         {"data": "produk_closing", render : function(row, data, iDisplayIndex){
             return iDisplayIndex.produk_closing +`<br><span style="color: #118C4F"><b>`+ formatRupiah(iDisplayIndex.nominal_transaksi, "Rp.") +`</b></span>`
         }},
+        {"data": "nominal_produk", render : function(row, data, iDisplayIndex){
+            return formatRupiah(iDisplayIndex.nominal_produk, "Rp.")
+        }},
         {"data": "nama_cs"},
         {"data": "durasi", className:'text-nowrap'},
         {"data": "status", className:'text-nowrap', render : function(row, data, iDisplayIndex){
