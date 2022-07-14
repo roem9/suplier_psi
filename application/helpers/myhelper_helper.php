@@ -205,7 +205,7 @@
         return $produk;
     }
 
-    function nominal_produk($id_closing){
+    function nominal_transaksi($id_closing){
         $CI =& get_instance();
         $CI->db->from("detail_closing");
         $CI->db->where(["id_closing" => $id_closing]);
@@ -215,7 +215,7 @@
         // $produk = "<span>";
         $nominal = 0;
         foreach ($data as $data) {
-            $nominal += $data['harga'];
+            $nominal += $data['harga_suplier'];
         }
 
         return $nominal;
@@ -418,4 +418,36 @@
             if($data1 <= $data2) return "<td class='bg-success'>Success";
             else return "<td class='bg-danger'><center>Failed</center></td>";
         }
+    }
+
+    function utang_gudang($id_gudang){
+        $CI =& get_instance();
+        $CI->db->from("closing");
+        // $CI->db->where(["id_gudang" => $id_gudang, "tgl_kirim !=" => "NULL", "hapus" => 0]);
+        $CI->db->where("id_gudang = '$id_gudang' AND tgl_kirim != 'NULL' AND hapus = 0 AND status <> 'Canceled' AND status <> 'Returned'");
+        $closing = $CI->db->get()->result_array();
+
+        $nominal = 0;
+        foreach ($closing as $closing) {
+            $CI->db->from("detail_closing");
+            $CI->db->where(["id_closing" => $closing['id_closing']]);
+            $detail_closing = $CI->db->get()->result_array();
+            foreach ($detail_closing as $detail_closing) {
+                $nominal += ($detail_closing['qty'] * $detail_closing['harga_suplier']);
+            }
+        }
+
+        $CI->db->select("SUM(nominal) as nominal");
+        $CI->db->from("pencairan_gudang");
+        $CI->db->where(["id_gudang" => $id_gudang]);
+        $pencairan = $CI->db->get()->row_array();
+
+        $utang = $pencairan['nominal'] - $nominal;
+
+        if($utang <= 0){
+            return "<span style='color: green'><b> Piutang : " . rupiah(abs($utang)) . "</b></span>";
+        } else {
+            return "<span style='color: red'><b> Utang : " . rupiah($utang) . "</b></span>";
+        }
+
     }

@@ -10,9 +10,10 @@
                 <div class="page-header d-print-none">
                 <div class="row align-items-center">
                     <div class="col">
-                    <h2 class="page-title">
-                        <?= $title?>
-                    </h2>
+                        <h2 class="page-title">
+                            <?= $title?>
+                        </h2>
+                        <?= utang_gudang($this->session->userdata('id_gudang'));?>
                     </div>
                 </div>
                 </div>
@@ -28,7 +29,6 @@
                                         <th class="text-dark desktop w-1 text-nowrap" style="font-size: 11px">Tgl. Order</th>
                                         <th class="text-dark desktop mobile-l mobile-p tablet-l tablet-p text-nowrap" style="font-size: 11px">Nama Customer</th>
                                         <th class="text-dark desktop" style="font-size: 11px">Pesanan Customer</th>
-                                        <th class="text-dark desktop w-1" style="font-size: 11px">Nominal</th>
                                         <th class="text-dark desktop w-1" style="font-size: 11px">CS</th>
                                         <th class="text-dark desktop w-1 text-nowrap" style="font-size: 11px">Durasi</th>
                                         <th class="text-dark desktop w-1" style="font-size: 11px">Status</th>

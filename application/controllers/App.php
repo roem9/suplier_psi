@@ -133,6 +133,24 @@ class App extends MY_Controller {
         $data = $this->app->pesanan_retur_diterima();
         echo json_encode($data);
     }
+
+    public function pendapatan(){
+        $data['id_gudang'] = $this->session->userdata("id_gudang");
+        $data['title'] = 'List Pendapatan';
+        $data['menu'] = "pendapatan";
+        $data['js'] = [
+            "ajax.js",
+            "function.js",
+            "helper.js",
+        ];
+
+        $data['pembayaran'] = $this->app->pembayaran();
+        $data['pencairan'] = $this->app->get_all("pencairan_gudang", ["id_gudang" => $data['id_gudang']], "tgl_input", "DESC");
+
+        // var_dump($data['pembayaran']['periode']);
+
+        $this->load->view("pages/app/pembayaran", $data);
+    }
 }
 
 /* End of file Produk.php */

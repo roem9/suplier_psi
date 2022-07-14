@@ -34,6 +34,19 @@
                     </div>
                 </li>
 
+                <li class="nav-item" id="pendapatan">
+                    <a class="nav-link btnLoading" href="<?= base_url()?>app/pendapatan" role="button" aria-expanded="false" >
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <svg width="24" height="24" class="me-3">
+                                <use xlink:href="<?= base_url()?>assets/tabler-icons-1.39.1/tabler-sprite.svg#tabler-coin" />
+                            </svg> 
+                        </span>
+                        <span class="nav-link-title">
+                            Pendapatan
+                        </span>
+                    </a>
+                </li>
+
             </ul>
         </div>
         </div>
