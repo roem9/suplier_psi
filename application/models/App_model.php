@@ -261,14 +261,89 @@ class App_model extends MY_Model {
 
             $data['periode'][$i] = $periode;
             $closing = $this->get_all("closing", ["MONTH(tgl_closing)" => date("m", strtotime($periode['tgl_closing'])), "YEAR(tgl_closing)" => date("Y", strtotime($periode['tgl_closing'])), "tgl_kirim !=" => "NULL", "id_gudang" => $id_gudang, "hapus" => 0]);
-            foreach ($closing as $closing) {
+
+            $id_closing = [];
+            foreach ($closing as $k => $closing) {
                 $detail_closing = $this->get_all("detail_closing",["id_closing" => $closing['id_closing']]);
                 foreach ($detail_closing as $detail_closing) {
                     $pembayaran += ($detail_closing['qty'] * $detail_closing['harga_suplier']);
                 }
+
+                $id_closing[$k] = $closing['id_closing'];
             }
 
             $data['periode'][$i]['pembayaran'] = $pembayaran;
+
+            if(!empty($id_closing)){
+                $this->db->select("kode_varian, nama_varian, SUM(qty) as qty, harga_suplier");
+                $this->db->from("detail_closing");
+                $this->db->where_in("id_closing", $id_closing);
+                $this->db->group_by("nama_varian");
+
+                $html = "<b>" . $periode['periode'] . "</b><br><br>";
+                $closing_berhasil = $this->db->get()->result_array();
+                foreach ($closing_berhasil as $closing_berhasil) {
+                    $sub = $closing_berhasil['qty'] * $closing_berhasil['harga_suplier'];
+                    $html .= $closing_berhasil['nama_varian'] . " = " . $closing_berhasil['qty'] . " X " . rupiah($closing_berhasil['harga_suplier']) . " = " . rupiah($sub) . "<br>";
+                }
+
+                $html .= "<b>Total = " . rupiah($pembayaran) . "</b>";
+
+                $data['periode'][$i]['closing']['berhasil'] = $html;
+            } else {
+                $data['periode'][$i]['closing']['berhasil'] = "";
+            }
+
+            // retur cancel 
+            $retur_cancel = 0;
+            
+            $closing = $this->get_all("closing", ["MONTH(tgl_closing)" => date("m", strtotime($periode['tgl_closing'])), "YEAR(tgl_closing)" => date("Y", strtotime($periode['tgl_closing'])), "tgl_kirim !=" => "NULL", "id_gudang" => $id_gudang, "hapus" => 0, "status" => "Returned"]);
+
+            $id_closing = [];
+            $k = 0;
+            foreach ($closing as $closing) {
+                $detail_closing = $this->get_all("detail_closing",["id_closing" => $closing['id_closing']]);
+                foreach ($detail_closing as $detail_closing) {
+                    $retur_cancel += ($detail_closing['qty'] * $detail_closing['harga_suplier']);
+                }
+                
+                $id_closing[$k] = $closing['id_closing'];
+                $k++;
+            }
+
+            $closing = $this->get_all("closing", ["MONTH(tgl_closing)" => date("m", strtotime($periode['tgl_closing'])), "YEAR(tgl_closing)" => date("Y", strtotime($periode['tgl_closing'])), "tgl_kirim !=" => "NULL", "id_gudang" => $id_gudang, "hapus" => 0, "status" => "Canceled"]);
+            foreach ($closing as $closing) {
+                $detail_closing = $this->get_all("detail_closing",["id_closing" => $closing['id_closing']]);
+                foreach ($detail_closing as $detail_closing) {
+                    $retur_cancel += ($detail_closing['qty'] * $detail_closing['harga_suplier']);
+                }
+
+                $id_closing[$k] = $closing['id_closing'];
+                $k++;
+            }
+
+            $data['periode'][$i]['retur_cancel'] = $retur_cancel;
+
+            if(!empty($id_closing)){
+                $this->db->select("kode_varian, nama_varian, SUM(qty) as qty, harga_suplier");
+                $this->db->from("detail_closing");
+                $this->db->where_in("id_closing", $id_closing);
+                $this->db->group_by("nama_varian");
+
+                $html = "<b>" . $periode['periode'] . "</b><br><br>";
+                $closing_retur_cancel = $this->db->get()->result_array();
+                foreach ($closing_retur_cancel as $closing_retur_cancel) {
+                    $sub = $closing_retur_cancel['qty'] * $closing_retur_cancel['harga_suplier'];
+                    $html .= $closing_retur_cancel['nama_varian'] . " = " . $closing_retur_cancel['qty'] . " X " . rupiah($closing_retur_cancel['harga_suplier']) . " = " . rupiah($sub) . "<br>";
+                    // $html .= $closing_retur_cancel['nama_varian'] . " = " . $closing_retur_cancel['qty'] . "<br>";
+                }
+
+                $html .= "<b>Total = " . rupiah($retur_cancel) . "</b>";
+
+                $data['periode'][$i]['closing']['retur_cancel'] = $html;
+            } else {
+                $data['periode'][$i]['closing']['retur_cancel'] = "";
+            }
 
             // pencairan 
             $this->db->select("SUM(nominal) as pencairan")->from("pencairan_gudang")->where(["id_gudang" => $id_gudang, "MONTH(periode)" => date("m", strtotime($periode['tgl_closing'])), "YEAR(periode)" => date("Y", strtotime($periode['tgl_closing']))]);

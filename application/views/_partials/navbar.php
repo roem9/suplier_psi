@@ -25,8 +25,10 @@
                         <a class="dropdown-item" id="stokKosong" href="<?= base_url()?>app/stok_kosong" >
                             Stok Kosong
                         </a>
-                        <a class="dropdown-item" id="pesananBelumLunas" href="<?= base_url()?>app/pesanan_belum_lunas" >
-                            Pesanan Belum Lunas
+                        <!-- <a class="dropdown-item" id="pesananBelumLunas" href="<?= base_url()?>app/pesanan_belum_lunas" > -->
+                        <a class="dropdown-item" id="pesananBerhasil" href="<?= base_url()?>app/pesanan_berhasil" >
+                            <!-- Pesanan Belum Lunas -->
+                            Pesanan Berhasil
                         </a>
                         <a class="dropdown-item" id="pesananReturCancel" href="<?= base_url()?>app/pesanan_retur_cancel" >
                             Pesanan Retur/Cancel

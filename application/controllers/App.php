@@ -101,6 +101,22 @@ class App extends MY_Controller {
         $this->load->view("pages/app/pesanan_belum_lunas", $data);
     }
 
+    public function pesanan_berhasil(){
+        $data['title'] = 'Pesanan Berhasil';
+        $data['menu'] = "pesanan";
+        $data['dropdown'] = "pesananBerhasil";
+        // $data['modal'] = ["modal_closing"];
+        $data['js'] = [
+            "ajax.js",
+            "function.js",
+            "helper.js",
+            "load_data/pesanan_belum_lunas_reload.js",
+            // "modules/closing.js",
+        ];
+
+        $this->load->view("pages/app/pesanan_belum_lunas", $data);
+    }
+
     public function load_pesanan_belum_lunas(){
         header('Content-Type: application/json');
         $output = $this->app->load_pesanan_belum_lunas();
@@ -138,6 +154,7 @@ class App extends MY_Controller {
         $data['id_gudang'] = $this->session->userdata("id_gudang");
         $data['title'] = 'List Pendapatan';
         $data['menu'] = "pendapatan";
+        $data['modal'] = ["modal_pendapatan"];
         $data['js'] = [
             "ajax.js",
             "function.js",

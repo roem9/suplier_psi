@@ -13,7 +13,7 @@
                         <h2 class="page-title">
                             <?= $title?>
                         </h2>
-                        <?= utang_gudang($this->session->userdata('id_gudang'));?>
+                        <!-- <?= utang_gudang($this->session->userdata('id_gudang'));?> -->
                     </div>
                 </div>
                 </div>
