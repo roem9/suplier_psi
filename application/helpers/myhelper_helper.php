@@ -215,7 +215,7 @@
         // $produk = "<span>";
         $nominal = 0;
         foreach ($data as $data) {
-            $nominal += $data['harga_suplier'];
+            $nominal += ($data['qty'] * $data['harga_suplier']);
         }
 
         return $nominal;
