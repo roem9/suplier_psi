@@ -29,7 +29,7 @@
                                     <tr>
                                         <th class="text-dark desktop" style="font-size: 11px">Periode</th>
                                         <th class="text-dark desktop" style="font-size: 11px"><center>Total Pendapatan</center></th>
-                                        <th class="text-dark desktop" style="font-size: 11px"><center>Retur/Cancel</center></th>
+                                        <th class="text-dark desktop" style="font-size: 11px"><center>Retur</center></th>
                                         <th class="text-dark desktop" style="font-size: 11px"><center>Cair</center></th>
                                         <th class="text-dark desktop" style="font-size: 11px"><center>Sisa</center></th>
                                         <th class="text-dark desktop w-1 text-nowrap" style="font-size: 11px"><center>Status</center></th>
